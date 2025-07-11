@@ -7,7 +7,7 @@ public class Controller : MonoBehaviour
 {
     public GameObject playerOne;
     public float speed = 1f;
-
+    private GameManager gameManager;
     public float yRange = 10;
     // Start is called before the first frame update
     void Start()
@@ -18,10 +18,11 @@ public class Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+    
         if (transform.position.y < -yRange)
-        {
-            transform.position = new Vector3(transform.position.x,-yRange, transform.position.z);
-        }
+            {
+                transform.position = new Vector3(transform.position.x, -yRange, transform.position.z);
+            }
 
         if (transform.position.y > yRange)
         {
@@ -39,6 +40,7 @@ public class Controller : MonoBehaviour
             //transform.Translate(Vector2.up);
             transform.position += new Vector3(0, speed * Time.deltaTime, 0);
         }
+
     }
 
 

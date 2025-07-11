@@ -10,14 +10,46 @@ public class GameManager : MonoBehaviour
 {
     public TextMeshProUGUI gameOverText;
     public TextMeshProUGUI ScoreText;
+
     public int Player1Score;
     public int Player2Score;
     public GameObject Ball;
+    public GameObject Player2PVP;
+    public GameObject Player2PVE;
+    public GameObject titleScreen;
+    public bool isGameActive;
 
     public Button restartButton;
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
+        //Player2 = GetComponent<Controller2>();
+        Time.timeScale = 0f;
+        isGameActive = false;
+        titleScreen.gameObject.SetActive(true);
+
+    }
+
+    public void PVPStartGame()
+    {
+        Player2PVP.gameObject.SetActive(true);
+        Time.timeScale = 1f;
+        isGameActive = true;
+        
+        titleScreen.gameObject.SetActive(false);
+        ScoreText.text = Player1Score + " | " + Player2Score;
+        UpdatePlayer1Score(0);
+        UpdatePlayer2Score(0);       
+    }
+
+    public void PVEStartGame()
+    {
+        //Player2PVP.gameObject.SetActive(false);
+        Player2PVE.gameObject.SetActive(true);
+        Time.timeScale = 1f;
+        isGameActive = true;
+        
+        titleScreen.gameObject.SetActive(false);
         ScoreText.text = Player1Score + " | " + Player2Score;
         UpdatePlayer1Score(0);
         UpdatePlayer2Score(0);
@@ -27,6 +59,7 @@ public class GameManager : MonoBehaviour
     {
         gameOverText.gameObject.SetActive(true);
         restartButton.gameObject.SetActive(true);
+        isGameActive = false;
     }
 
     public void RestartGame()

@@ -6,7 +6,7 @@ public class Controller2 : MonoBehaviour
 {
     public float yRange;
     public float speed = 10f;
-
+    private GameManager gameManager;
 
     // Start is called before the first frame update
     void Start()
@@ -15,30 +15,33 @@ public class Controller2 : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
+       
         
-        if (transform.position.y < -yRange)
-        {
+         if (transform.position.y < -yRange)
+            {
             transform.position = new Vector3(transform.position.x,-yRange, transform.position.z);
-        }
+            }
 
         if (transform.position.y > yRange)
-        {
+            {
             transform.position = new Vector3(transform.position.x, yRange, transform.position.z);
-        }
+            }
 
         if (Input.GetKey(KeyCode.DownArrow))
-        {
+            {
             //transform.Translate(Vector2.down);
             transform.position -= new Vector3(0, speed * Time.deltaTime, 0);
-        }
+            }
 
         if (Input.GetKey(KeyCode.UpArrow))
-        {
+            {
             //transform.Translate(Vector2.up);
             transform.position += new Vector3(0, speed * Time.deltaTime, 0);
-        }
+            }
+        
+
     
     }
 }

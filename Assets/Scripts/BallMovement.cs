@@ -13,39 +13,36 @@ using UnityEngine.UI;
 
 public class BallMovement : MonoBehaviour
 {
-    public TextMeshProUGUI gameOverText;
-    public TextMeshProUGUI ScoreText;
-    public Button restartButton;
-    public Rigidbody P1Rb;
     private Rigidbody rb;
 
     public GameManager gameManager;
 
     public float ballSpeed = 5f;
     private float startSpeed = 10f;
-    private float bounceStrength = 5f;
-    private bool isColliding;
+    //private float bounceStrength = 5f;
     private Vector3 previousVelocity;
     private bool Player1Hit;
     private bool Player1HitUp;
     private bool Player1HitDown;
     private bool Player2Hit;
-    private bool Player2HitUp;
-    private bool Player2HitDown;
-    private bool LowerWallHit;
-    private bool TopWallHit;
+    public bool Player2HitUp;
+    public bool Player2HitDown;
+    public bool LowerWallHit;
+    public bool TopWallHit;
     private Vector3 startPosition;
+
 
 
     // Start is called before the first frame update
     void Start()
     {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         startSpeed = ballSpeed;
         startPosition = transform.position;
         rb = GetComponent<Rigidbody>();
         Player2Hit = true;
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
+    
 
 
 
