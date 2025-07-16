@@ -8,21 +8,25 @@ public class Controller : MonoBehaviour
     public GameObject playerOne;
     public float speed = 1f;
     private GameManager gameManager;
+    private float timer = 3f;
+    public bool lockControls = false;
+    public Color SpikeOn = Color.red;
+    public Color SpikeOff = Color.white;
     public float yRange = 10;
     // Start is called before the first frame update
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-    
+
         if (transform.position.y < -yRange)
-            {
-                transform.position = new Vector3(transform.position.x, -yRange, transform.position.z);
-            }
+        {
+            transform.position = new Vector3(transform.position.x, -yRange, transform.position.z);
+        }
 
         if (transform.position.y > yRange)
         {
@@ -41,6 +45,22 @@ public class Controller : MonoBehaviour
             transform.position += new Vector3(0, speed * Time.deltaTime, 0);
         }
 
+        if (Input.GetKey(KeyCode.D) && !lockControls)
+        {
+            lockControls = true;
+            Renderer myRenderer = GetComponent<Renderer>();
+            myRenderer.material.color = SpikeOn;
+            StartCoroutine(WaitAfter3Seconds());
+        }
+
+        IEnumerator WaitAfter3Seconds()
+        {
+            Renderer myRenderer = GetComponent<Renderer>();
+            yield return new WaitForSeconds(timer); // Adjust the delay as needed
+            myRenderer.material.color = SpikeOff;
+            lockControls = false;
+
+        }  
     }
 
 

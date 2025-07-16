@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public int Player1Score;
     public int Player2Score;
     public GameObject Ball;
+    public int randomNumber;
     public GameObject Player2PVP;
     public GameObject Player2PVE;
     public GameObject titleScreen;
@@ -27,7 +28,17 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
         isGameActive = false;
         titleScreen.gameObject.SetActive(true);
-
+        StartCoroutine(GenerateRandomNumbers());
+    }
+    
+     IEnumerator GenerateRandomNumbers()
+    {
+        while (true)
+        {
+            randomNumber = Random.Range(0, 3);
+            Debug.Log(randomNumber);
+            yield return new WaitForSeconds(0.5f); // Adjust the delay as needed
+        }
     }
 
     public void PVPStartGame()
@@ -35,11 +46,11 @@ public class GameManager : MonoBehaviour
         Player2PVP.gameObject.SetActive(true);
         Time.timeScale = 1f;
         isGameActive = true;
-        
+
         titleScreen.gameObject.SetActive(false);
         ScoreText.text = Player1Score + " | " + Player2Score;
         UpdatePlayer1Score(0);
-        UpdatePlayer2Score(0);       
+        UpdatePlayer2Score(0);
     }
 
     public void PVEStartGame()
@@ -80,7 +91,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
     }
 
     public void UpdatePlayer2Score(int scoreToAdd)

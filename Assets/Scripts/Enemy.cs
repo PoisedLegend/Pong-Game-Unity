@@ -6,6 +6,8 @@ public class Enemy : MonoBehaviour
 {
     public GameObject ball;
     public GameManager gameManager;
+
+
     private Vector3 startPosition;
     public float speed = 10f;
 
@@ -15,6 +17,7 @@ public class Enemy : MonoBehaviour
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         startPosition = transform.position;
     }
+
 
     // Update is called once per frame
     void Update()
@@ -26,30 +29,17 @@ public class Enemy : MonoBehaviour
             if (ball.transform.position.y > transform.position.y)
             {
                 transform.position += new Vector3(0, speed * Time.deltaTime, 0);
-
-                //if (transform.position.y > startPosition.y)
-                //{
-                    
-                //}
+                //Player2HitDown = false;
+                //Player2HitUp = true;
+                //ball.GetComponent<BallMovement>().TopWallHit = false;
+                //ball.GetComponent<BallMovement>().LowerWallHit = false;
             }
-
-
 
             if (ball.transform.position.y < transform.position.y)
             {
                 transform.position -= new Vector3(0, speed * Time.deltaTime, 0);
-
-                //if (transform.position.y < startPosition.y)
-                //{
-                    //ball.GetComponent<BallMovement>().Player2HitUp = false;
-                    //ball.GetComponent<BallMovement>().Player2HitDown = true;
-                //}
             }
             //Move Down
-
-
-        } 
-
-
+        }
     }
 }

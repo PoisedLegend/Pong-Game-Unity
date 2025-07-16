@@ -1,13 +1,13 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Runtime.CompilerServices;
-using JetBrains.Annotations;
+//using System;
+//using System.Collections;
+//using System.Collections.Generic;
+//using System.Linq.Expressions;
+//using System.Runtime.CompilerServices;
+//using JetBrains.Annotations;
 using TMPro;
-using Unity.VisualScripting;
-using UnityEditor.Callbacks;
-using UnityEditor.ProjectWindowCallback;
+//using Unity.VisualScripting;
+//using UnityEditor.Callbacks;
+//using UnityEditor.ProjectWindowCallback;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,9 +16,15 @@ public class BallMovement : MonoBehaviour
     private Rigidbody rb;
 
     public GameManager gameManager;
+    public GameObject Player2PVEPaddle;
 
+    
     public float ballSpeed = 5f;
+    private float Spike = 10f;
+    public float SpikePVE = 10f;
     private float startSpeed = 10f;
+    public bool Active = false;
+
     //private float bounceStrength = 5f;
     private Vector3 previousVelocity;
     private bool Player1Hit;
@@ -42,7 +48,7 @@ public class BallMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         Player2Hit = true;
     }
-    
+
 
 
 
@@ -81,7 +87,7 @@ public class BallMovement : MonoBehaviour
 
         if (LowerWallHit == true)
         {
-            
+
             transform.position += new Vector3(0, ballSpeed * Time.deltaTime, 0);
             previousVelocity = rb.velocity;
             //transform.Translate(Vector3.up * ballSpeed * Time.deltaTime);
@@ -89,7 +95,7 @@ public class BallMovement : MonoBehaviour
 
         if (TopWallHit == true)
         {
-            
+
             transform.position -= new Vector3(0, ballSpeed * Time.deltaTime, 0);
             previousVelocity = rb.velocity;
             //transform.Translate(Vector3.down * ballSpeed * Time.deltaTime);
@@ -124,16 +130,68 @@ public class BallMovement : MonoBehaviour
                 TopWallHit = false;
                 LowerWallHit = false;
             }
+
+            if (Input.GetKey(KeyCode.D)&& !Active)
+            {
+                //Active = true;
+                Player1Hit = true;
+                Player1HitDown = false;
+                Player1HitUp = false;
+                TopWallHit = false;
+                LowerWallHit = false;
+                ballSpeed += Spike;        
+                //StartCoroutine (ActiveFor5Seconds());
+            }
+
+            //IEnumerator ActiveFor5Seconds()
+            //{
+                //yield return new WaitForSeconds(5f);
+       
+                //Active = false;
+            //}
         }
 
         else if (collision.gameObject.CompareTag("Player2"))
         {
+
             previousVelocity = rb.velocity;
             Player2Hit = true;
             Player1Hit = false;
             TopWallHit = false;
             LowerWallHit = false;
             ballSpeed += 0.2f;
+
+
+
+            if (Player2PVEPaddle.transform.position.y < transform.position.y)
+            {
+                previousVelocity = rb.velocity;
+                Player2HitUp = true;
+                Player2HitDown = false;
+                TopWallHit = false;
+                LowerWallHit = false;
+            }
+
+            if (Player2PVEPaddle.transform.position.y > transform.position.y)
+            {
+                previousVelocity = rb.velocity;
+                Player2HitDown = true;
+                Player2HitUp = false;
+                TopWallHit = false;
+                LowerWallHit = false;
+            }
+
+            else if (gameManager.randomNumber == 2)
+            {
+                previousVelocity = rb.velocity;
+                Player2Hit = true;
+                Player1Hit = false;
+                TopWallHit = false;
+                LowerWallHit = false;
+                Player2HitDown = false;
+                Player2HitUp = false;
+                ballSpeed += Spike;
+            }
 
             if (Input.GetKey(KeyCode.DownArrow))
             {
@@ -150,6 +208,17 @@ public class BallMovement : MonoBehaviour
                 TopWallHit = false;
                 LowerWallHit = false;
             }
+
+            if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                Player2Hit = true;
+                Player2HitDown = false;
+                Player2HitUp = false;
+                TopWallHit = false;
+                LowerWallHit = false;
+                ballSpeed += Spike;
+            }
+
         }
 
         if (collision.gameObject.CompareTag("BottomWall"))

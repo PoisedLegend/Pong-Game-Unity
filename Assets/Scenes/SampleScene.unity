@@ -291,6 +291,7 @@ MonoBehaviour:
   Player1Score: 0
   Player2Score: 0
   Ball: {fileID: 1501516746}
+  randomNumber: 0
   Player2PVP: {fileID: 194721849}
   Player2PVE: {fileID: 1564346763}
   titleScreen: {fileID: 398360980}
@@ -444,7 +445,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   yRange: 7
-  speed: 10
+  speed: 15
+  SpikeOn: {r: 1, g: 0, b: 0, a: 1}
+  SpikeOff: {r: 1, g: 1, b: 1, a: 1}
+  lockControls: 0
 --- !u!1 &233679398
 GameObject:
   m_ObjectHideFlags: 0
@@ -2317,7 +2321,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 40727668}
+  Player2PVEPaddle: {fileID: 1564346763}
   ballSpeed: 10
+  SpikePVE: 10
+  Active: 0
   Player2HitUp: 0
   Player2HitDown: 0
   LowerWallHit: 0
@@ -2383,7 +2390,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ball: {fileID: 1501516746}
   gameManager: {fileID: 40727668}
-  speed: 10
+  speed: 14
 --- !u!65 &1564346766
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2609,7 +2616,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerOne: {fileID: 1606025285}
-  speed: 10
+  speed: 15
+  lockControls: 0
+  SpikeOn: {r: 1, g: 0, b: 0, a: 1}
+  SpikeOff: {r: 1, g: 1, b: 1, a: 1}
   yRange: 7
 --- !u!65 &1606025287
 BoxCollider:

@@ -6,6 +6,12 @@ public class Controller2 : MonoBehaviour
 {
     public float yRange;
     public float speed = 10f;
+
+    private float timer = 3f;
+    public Color SpikeOn = Color.red;
+    public Color SpikeOff = Color.white;
+
+    public bool lockControls = false;
     private GameManager gameManager;
 
     // Start is called before the first frame update
@@ -41,7 +47,22 @@ public class Controller2 : MonoBehaviour
             transform.position += new Vector3(0, speed * Time.deltaTime, 0);
             }
         
+        if (Input.GetKey(KeyCode.LeftArrow)&& !lockControls)
+        {
+            lockControls = true;
+            Renderer myRenderer = GetComponent<Renderer>();
+            myRenderer.material.color = SpikeOn;
+            //myRenderer.material.color = SpikeOff;
+            StartCoroutine(WaitAfter3Seconds());
+        }
 
+        IEnumerator WaitAfter3Seconds()
+        {
+            Renderer myRenderer = GetComponent<Renderer>();
+            yield return new WaitForSeconds(timer); // Adjust the delay as needed
+            myRenderer.material.color = SpikeOff;
+            lockControls = false;
+        }
     
     }
 }
